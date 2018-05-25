@@ -13,7 +13,7 @@ class SkewedNormalDateGenerator(DateGenerator):
         It means that if you ask a date around 2018-01-01T00:00:00 with a scale of 10, you will get date +- 5s around
         this date.
 
-        :param skew: Skew parameters. number below 0 will skew to the right, and above 0, to the left
+        :param skew: Skew parameters. Number below 0 will result in more date to the left limit.
         :param loc: Date around which we will generate date
         :param scale: scale, in second, for the range of random events
         """
