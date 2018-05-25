@@ -10,7 +10,6 @@ setup(
         author_email='',
         description='Mocking temporal data made easy !',
         install_requires=[
-            "pandas==0.22.0",
             "numpy==1.13.3",
             "scipy==1.1.0"
             ]
