@@ -7,7 +7,7 @@ from .PropertyGenerator import PropertyGenerator
 
 
 class RandomChoiceGenerator(PropertyGenerator):
-    def __init__(self, initial_list: List[Any], weights: Optional[List[float]]):
+    def __init__(self, initial_list: List[Any], weights: Optional[List[float]] = None):
         self.initial_list = initial_list
         if weights is not None:
             assert len(weights) == len(initial_list), "Len of weights and initial_list should be the same"
