@@ -33,7 +33,7 @@ class EventComposer:
     def to_csv(self, destination: str, shuffle: bool = False, fields: Optional[List[str]] = None):
         events = self.generate(shuffle)
         if fields is None:
-            fields = list(events[0].keys())
+            fields = set([key for generator in self.generators.values() for key in generator.keys()])
         with open(destination, 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fields)
 

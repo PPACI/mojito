@@ -1,11 +1,12 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from .EventGenerator import EventGenerator
-from ..property.PropertyGenerator import PropertyGenerator
 from ..date.DateGenerator import DateGenerator
+from ..property.PropertyGenerator import PropertyGenerator
 
 
 class TimestampEventGenerator(EventGenerator):
+
     def __init__(self, timestamp: DateGenerator, properties: Dict[str, PropertyGenerator]):
         self.timestamp = timestamp
         self.properties = properties
@@ -16,3 +17,6 @@ class TimestampEventGenerator(EventGenerator):
             "timestamp": self.timestamp.generate(),
             **generated_properties
             }
+
+    def keys(self)-> List[str]:
+        return [*list(self.properties.keys()), "timestamp"]
