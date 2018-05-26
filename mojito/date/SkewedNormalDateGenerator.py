@@ -6,7 +6,7 @@ from .DateGenerator import DateGenerator
 
 
 class SkewedNormalDateGenerator(DateGenerator):
-    def __init__(self, loc: datetime, skew: float = 0, scale: float = 1):
+    def __init__(self, center: datetime, skew: float = 0, deviation: float = 1):
         """
         Create a SkewedNormalDateGenerator. This generator is based on a second basis.
 
@@ -14,14 +14,19 @@ class SkewedNormalDateGenerator(DateGenerator):
         this date.
 
         :param skew: Skew parameters. Number below 0 will result in more date to the left limit.
-        :param loc: Date around which we will generate date
-        :param scale: scale, in second, for the range of random events
+        :param center: Mean generated datetime for the skewed normal distribution
+        :param deviation: Deviation of datetime, in second, used for the skewed normal distribution
         """
         self.skew = skew
-        self.loc = loc
-        self.scale = scale
+        self.center = center
+        self.dispersion = deviation
 
     def generate(self) -> datetime:
-        timestamp = round(self.loc.timestamp())
-        generated = skewnorm.rvs(self.skew, loc=timestamp, scale=self.scale)
+        """
+        Generate a random date taken from a Skewed Normal Distribution
+
+        :return: datetime
+        """
+        timestamp = round(self.center.timestamp())
+        generated = skewnorm.rvs(self.skew, loc=timestamp, scale=self.dispersion)
         return datetime.fromtimestamp(generated)

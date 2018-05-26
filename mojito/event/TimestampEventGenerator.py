@@ -8,6 +8,12 @@ from ..property.PropertyGenerator import PropertyGenerator
 class TimestampEventGenerator(EventGenerator):
 
     def __init__(self, timestamp: DateGenerator, properties: Dict[str, PropertyGenerator]):
+        """
+        Init an Event Generator based on a DateGenerator and multiples PropertyGenerator
+
+        :param timestamp: a DateGenerator
+        :param properties: a dict like {property_name: PropertyGenerator}
+        """
         self.timestamp = timestamp
         self.properties = properties
 
