@@ -32,7 +32,7 @@ class EventComposer:
         del self.generators[id(generator)]
         del self.samples[id(generator)]
 
-    def generate(self, shuffle: bool = False) -> List[Dict[str, Any]]:
+    def generate(self, shuffle: bool = True) -> List[Dict[str, Any]]:
         """
         Generate all events from this composer
 
