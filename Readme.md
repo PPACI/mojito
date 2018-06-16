@@ -6,6 +6,8 @@ There are lot of data mocking framework in Python. But none of them are really o
 statistically homogeneous data, especially temporal event. **Mojito is designed for that !**
 
 ## How to use it
+Start by installing Mojito `pip install git+https://github.com/PPACI/mojito.git`.
+
 ```python
 from datetime import datetime
 from pprint import pprint
