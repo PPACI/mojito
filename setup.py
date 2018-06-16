@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
         name='mojito',
-        version='0.1',
+        version='0.2.0',
         packages=['mojito'],
         url='smart-metric.com',
         license='',

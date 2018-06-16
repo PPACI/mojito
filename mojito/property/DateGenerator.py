@@ -2,13 +2,13 @@ from datetime import datetime
 
 from scipy.stats import skewnorm
 
-from .DateGenerator import DateGenerator
+from mojito.property.PropertyGenerator import PropertyGenerator
 
 
-class SkewedNormalDateGenerator(DateGenerator):
+class DateGenerator(PropertyGenerator):
     def __init__(self, center: datetime, skew: float = 0, deviation: float = 1):
         """
-        Create a SkewedNormalDateGenerator. This generator is based on a second basis.
+        Create a DateGenerator. This generator is based on a second basis.
 
         It means that if you ask a date around 2018-01-01T00:00:00 with a scale of 10, you will get date +- 5s around
         this date.

@@ -10,24 +10,20 @@ statistically homogeneous data, especially temporal event. **Mojito is designed 
 from datetime import datetime
 from pprint import pprint
 
-from mojito.date.SkewedNormalDateGenerator import SkewedNormalDateGenerator
-from mojito.event.EventComposer import EventComposer
-from mojito.event.TimestampEventGenerator import TimestampEventGenerator
-from mojito.property.FixedValueGenerator import FixedValueGenerator
-from mojito.property.RandomChoiceGenerator import RandomChoiceGenerator
-from mojito.property.SkewedNormalNumberGenerator import SkewedNormalNumberGenerator
+from mojito import DateGenerator, EventComposer, FixedValueGenerator, NumberGenerator, PropertyEventGenerator, \
+    RandomChoiceGenerator
 
-event1 = TimestampEventGenerator(
-        timestamp=SkewedNormalDateGenerator(center=datetime(2018, 5, 2, 0, 0, 0), deviation=3 * 3600),
+event1 = PropertyEventGenerator(
         properties={
-            "age": SkewedNormalNumberGenerator(mean=15, deviation=3, return_int=True),
+            "timestamp": DateGenerator(center=datetime(2018, 5, 2, 0, 0, 0), deviation=3 * 3600),
+            "age": NumberGenerator(mean=15, deviation=3, return_int=True),
             "gender": RandomChoiceGenerator(['M', 'F']),
             "label": FixedValueGenerator(1)
             })
-event2 = TimestampEventGenerator(
-        timestamp=SkewedNormalDateGenerator(center=datetime(2018, 5, 10, 0, 0, 0), deviation=3 * 3600, skew=0),
+event2 = PropertyEventGenerator(
         properties={
-            "age": SkewedNormalNumberGenerator(mean=30, deviation=3, return_int=True),
+            "timestamp": DateGenerator(center=datetime(2018, 5, 10, 0, 0, 0), deviation=3 * 3600, skew=0),
+            "age": NumberGenerator(mean=30, deviation=3, return_int=True),
             "gender": RandomChoiceGenerator(['M', 'F'], weights=[2, 1]),
             "label": FixedValueGenerator(0)
             })
@@ -63,42 +59,37 @@ Will output
 ```
 
 ## API
-Mojito use a model where an **EventGenerator** will be used to generate sample events.
-There are two types of generators available :
-* Date Generator
-    * Used to generate random timestamp
-* Property Generator
-    * Used to generate multiple properties
-### Event
-Currently, there is only one way of generating events, and that's with the *TimestampEventGenerator*.
-Check the example to see how to instantiate it.  
-There are two parameters for this class
-* timestamp
-    * an instance of a DateGenerator used to draw random timestamp
-** properties
-    * a dict like `{property_name: instance of PropertyGenerator}`
-    * used to draw different property for each generated events
+Mojito use a model where a **PropertyEventGenerator** will be used to generate sample events.
+An **Event** is something happening, characterized by the statistical distribution of the sample it represent.
+A **Sample** is the generated data. It could represent a visit on your site, or someone buying a specific item
+or whatever.
+Remember that if you want to generate sample from two statistical distribution, you will have to create two events and
+compose them as in the example.
+Currently, the main distribution used to generate data is the **Normal distribution** as it's used to represent
+lot's of real life distribution.
 
-*Note : the special timestamp property will have the name **timestamp***
-### Date
-You have access to the following **DateGenerator**
-* **SkewedNormalDateGenerator**
+### EventGenerator
+A **PropertyEventGenetator** will be instantiated with a dictionary of {"name":PropertyGenerator}.
+This event generator will be at the center of your mocking task as it's describing how event should look like.
+
+### PropertyGenerator
+You have access to the following **PropertyGenerator**
+* **DateGenerator**
     * Output datetime distributed around the supplied center datetime
     * Distribution is a [Skew Normal](https://en.wikipedia.org/wiki/Skew_normal_distribution)
     * You can pass `skew=0` to have a non skewed normal distribution
     * `scale` is in second, so `deviation=3600` will result in a standard deviation of 1 hours around the provided datetime
-### Property
-You have access to the following **PropertyGenerator**
 * **FixedValueGenerator**
     * Always output the same value
 * **RandomChoiceGenerator**
     * Take random choice from a provided list of possibilities
     * You can pass `weights=[a, b]` to weight the list accordingly
-* **SkewedNormalNumberGenerator**
+* **NumberGenerator**
     * Output number distributed around the supplied mean
     * Distribution is a [Skew Normal](https://en.wikipedia.org/wiki/Skew_normal_distribution)
     * You can pass `skew=0` to have a non skewed normal distribution
     * You can pass `return_int=True` to generate *integer* instead of *float*
+    
 ### Composition
 Real models are aggregation of multiple, different, events. To simulate this, you can use the *EventComposer*.
 ````python

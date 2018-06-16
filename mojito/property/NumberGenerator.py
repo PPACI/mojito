@@ -6,10 +6,10 @@ from scipy.stats import skewnorm
 from .PropertyGenerator import PropertyGenerator
 
 
-class SkewedNormalNumberGenerator(PropertyGenerator):
+class NumberGenerator(PropertyGenerator):
     def __init__(self, mean: float, deviation: float, skew: float = 0, return_int: bool = False):
         """
-        Init a SkewedNormalNumberGenerator which will output number taken from a skewed normal distribution.
+        Init a NumberGenerator which will output number taken from a skewed normal distribution.
 
         :param skew: Skew parameters. Number below 0 will skew distribution to the left.
                     Set to 0 to have a standard Normal Number Generator.
