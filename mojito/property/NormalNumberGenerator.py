@@ -6,7 +6,7 @@ from scipy.stats import skewnorm
 from .PropertyGenerator import PropertyGenerator
 
 
-class NumberGenerator(PropertyGenerator):
+class NormalNumberGenerator(PropertyGenerator):
     def __init__(self, mean: float, deviation: float, skew: float = 0, return_int: bool = False):
         """
         Init a NumberGenerator which will output number taken from a skewed normal distribution.
@@ -15,6 +15,7 @@ class NumberGenerator(PropertyGenerator):
                     Set to 0 to have a standard Normal Number Generator.
         :param mean: Mean generated number
         :param deviation: deviation of the distribution
+        :param return_int: return number as integer instead of float
         """
         self.skew = skew
         self.mean = mean

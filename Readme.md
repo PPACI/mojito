@@ -91,6 +91,12 @@ You have access to the following **PropertyGenerator**
     * Distribution is a [Skew Normal](https://en.wikipedia.org/wiki/Skew_normal_distribution)
     * You can pass `skew=0` to have a non skewed normal distribution
     * You can pass `return_int=True` to generate *integer* instead of *float*
+    * Also available as NormalNumberGenerator class
+* **PoissonNumberGenerator**
+    * Output number from a [Poisson distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
+    * Only distribution parameter is `mu`, the average number of event in the time period
+    * You can pass `return_int=True` to generate *integer* instead of *float*
+    
     
 ### Composition
 Real models are aggregation of multiple, different, events. To simulate this, you can use the *EventComposer*.
