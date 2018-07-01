@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("Readme.md") as f:
     long_desc = f.read()
@@ -6,7 +6,7 @@ with open("Readme.md") as f:
 setup(
         name='mojito',
         version='0.3.0',
-        packages=['mojito'],
+        packages=find_packages(),
         license='',
         author='Pierre Paci',
         author_email='',
