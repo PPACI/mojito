@@ -4,7 +4,7 @@ with open("Readme.md") as f:
     long_desc = f.read()
 
 setup(
-        name='mojito',
+        name='mojito-mock',
         version='0.3.0',
         packages=find_packages(),
         license='',
